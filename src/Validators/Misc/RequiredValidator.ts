@@ -1,23 +1,20 @@
 import Validator from '../Validator';
+import {Obj} from '../../index';
 
 export interface RequiredOptions {
   validator: 'required';
-  params: RequiredParams;
+  params?: Obj;
   errorMessage?: string;
 }
 
-interface RequiredParams {
-  size?: number;
-}
-
-class RequiredValidator<V, E = string> extends Validator<V, E, RequiredParams> {
+class RequiredValidator<V, E = string> extends Validator<V, E, Obj> {
   public displayName = 'required';
 
   public field: string;
   public fullField: string;
 
   public value: V;
-  public params: RequiredParams;
+  public params: Obj;
 
   public errorMessage = "%f is a required field.";
 
