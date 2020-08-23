@@ -1,0 +1,28 @@
+{
+  "name": "validatro",
+  "version": "0.0.1",
+  "description": "Form input validator",
+  "main": "index.js",
+  "repository": "https://github.com/hawkservers/form-validator",
+  "author": {
+    "name": "George Stubbs",
+    "email": "george@stubbo.me",
+    "discord": "https://discord.gg/gat5apF"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^26.0.10",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "@typescript-eslint/parser": "^3.9.1",
+    "eslint": "^7.7.0",
+    "jest": "^26.4.1",
+    "ts-jest": "^26.2.0",
+    "typescript": "^4.0.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "eslint": "eslint",
+    "dev": "npm run test && npm run tsc"
+  }
+}
