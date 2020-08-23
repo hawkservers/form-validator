@@ -1,9 +1,11 @@
 import RequiredValidator, {RequiredOptions} from './RequiredValidator';
 import SizeValidator, {SizeOptions} from "./SizeValidator";
+import RegexValidator, {RegexOptions} from "./RegexValidator";
 
-export type MiscValidators = RequiredOptions | SizeOptions;
+export type MiscValidators = RequiredOptions | SizeOptions | RegexOptions;
 
 export default {
   required: RequiredValidator,
-  size: SizeValidator
+  size: SizeValidator,
+  regex: RegexValidator
 };
