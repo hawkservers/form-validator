@@ -10,6 +10,12 @@
     "email": "george@stubbo.me",
     "discord": "https://discord.gg/gat5apF"
   },
+  "contributors": [
+    {
+      "name": "Zeo",
+      "email": "mex@zeodev.cc"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^26.0.10",
