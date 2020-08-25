@@ -1,4 +1,6 @@
-export default abstract class Validator<V, E = string, P = Array<unknown>> {
+import {Obj} from "../index";
+
+export default abstract class Validator<V, E = string, P = Obj> {
   public abstract readonly displayName: string;
 
   public abstract field: string;
@@ -6,6 +8,7 @@ export default abstract class Validator<V, E = string, P = Array<unknown>> {
 
   public abstract value: V;
   public abstract params: P;
+  public readonly paramsOrder: Array<keyof P>;
 
   public abstract errorMessage: E | string;
 

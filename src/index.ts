@@ -7,6 +7,10 @@ export interface ValidationSchema {
   [key: string]: Array<ValidOpt['validator'] | ValidOpt | string>;
 }
 
+type ErrorsMap = {
+  [key in ValidOpt["validator"]]?: string[];
+};
+
 export default class FormValidator<D extends Obj> {
   public data: D;
   public validationSchema: ValidationSchema;
@@ -21,17 +25,15 @@ export default class FormValidator<D extends Obj> {
     return new FormValidator<D>(data, schema);
   }
 
-  test(): true {
-    const errors = [];
+  test(): true | never {
     const schema = this.validationSchema
 
-
-    // todo: nested validation rules
+    const errors: ErrorsMap = {};
     for (const dataKey in schema) {
       if (!Object.prototype.hasOwnProperty.call(schema, dataKey,)) {
         continue;
       }
-
+      
       const data = this.data[dataKey];
       const validators = schema[dataKey];
 
@@ -51,12 +53,12 @@ export default class FormValidator<D extends Obj> {
         try {
           validator.test();
         } catch (err) {
-          errors.push(err);
+          (errors[dataKey] ||= []).push(err);
         }
       });
     }
 
-    if (errors.length > 0) {
+    if (Object.keys(errors).length > 0) {
       throw errors;
     }
 
@@ -66,34 +68,44 @@ export default class FormValidator<D extends Obj> {
   validatorStringSetup(
     validator: string, data: unknown, dataKey: string,
   ): Validator<unknown> {
-    const [Val, paramString] = validator.split(':');
-    const params = paramString.split(',');
+    const [val, paramString] = validator.split(':');
+    
+    const valInstance = new Validators[val];
+    valInstance.field = dataKey;
+    valInstance.value = data;
+    
+    const params = {};
+    if (paramString && valInstance.paramsOrder) {
+      const unassignedParams = paramString.split(',');
+      
+      for (let i = 0; i < unassignedParams.length; i++) {
+        // Disallow the params to exceed the number of params on the validator
+        const paramName = valInstance.paramsOrder[i];
+        if (!paramName) continue;
 
-    const ValInstance = new Validators[Val]();
-
-    ValInstance.field = dataKey;
-
-    ValInstance.value = data;
-    ValInstance.params = params;
-
-    return ValInstance
+        params[paramName] = unassignedParams[i];
+      }
+    }
+    
+    valInstance.params = params;
+    
+    return valInstance;
   }
 
   validatorObjectSetup(
     validator: ValidOpt, data: unknown, dataKey: string,
   ): Validator<unknown> {
-    const ValInstance = new Validators[validator['validator'] as string]();
-
-    ValInstance.field = dataKey;
-
-    ValInstance.value = data;
-    ValInstance.params = validator['params'];
+    const valInstance = new Validators[validator['validator'] as string]();
+  
+    valInstance.field = dataKey;
+  
+    valInstance.value = data;
+    valInstance.params = validator['params'];
 
     if (validator['errorMessage']) {
-      ValInstance.errorMessage = validator['errorMessage'];
+      valInstance.errorMessage = validator['errorMessage'];
     }
 
-    return ValInstance;
+    return valInstance;
   }
 }
-
