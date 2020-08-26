@@ -4,7 +4,7 @@
   "description": "Form input validator",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/hawkservers/form-validator",
+  "repository": "github:hawkservers/validatro",
   "author": {
     "name": "George Stubbs",
     "email": "george@stubbo.me",
@@ -33,5 +33,9 @@
     "test": "jest",
     "eslint": "eslint",
     "dev": "npm run test && npm run tsc"
-  }
+  },
+  "keywords": [
+    "validator",
+    "forms"
+  ]
 }
