@@ -8,7 +8,7 @@ export default abstract class Validator<V, E = string, P = Obj> {
 
   public abstract value: V;
   public abstract params: P;
-  public readonly paramsOrder: Array<keyof P>;
+  public readonly paramsOrder: ReadonlyArray<keyof P>;
 
   public abstract errorMessage: E | string;
 
