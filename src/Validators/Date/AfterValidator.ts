@@ -21,6 +21,7 @@ class AfterValidator<V extends Date, E = string>
   
   public value: V;
   public params: AfterParams;
+  public readonly paramsOrder = <const>['date', 'canEqual'];
   
   get errorMessage(): string {
     return `%f has to be after ${this.params.date.getTime()}.`;

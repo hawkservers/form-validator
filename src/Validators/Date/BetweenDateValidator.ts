@@ -22,6 +22,7 @@ class BetweenDateValidator<V extends Date, E = string>
   
   public value: V;
   public params: BetweenDateParams;
+  public readonly paramsOrder = <const>['from', 'to', 'canEqual'];
   
   get errorMessage(): string {
     return `%f has to be between (date 1) and (date 2)`;

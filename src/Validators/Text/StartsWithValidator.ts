@@ -20,6 +20,7 @@ class StartsWithValidator<V extends string, E = string>
   
   public value: V;
   public params: StartsWithParams;
+  public readonly paramsOrder = <const>['startWith'];
   
   get errorMessage(): string {
     const {startWith} = this.params;

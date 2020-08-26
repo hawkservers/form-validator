@@ -18,6 +18,7 @@ class RegexValidator<V, E = string> extends Validator<V, E, RegexParams> {
   
   public value: V;
   public params: RegexParams;
+  public readonly paramsOrder = ["regexp"] as const;
   
   public errorMessage = '%f does not match the regex pattern';
   

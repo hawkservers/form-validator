@@ -21,6 +21,7 @@ class BeforeValidator<V extends Date, E = string>
   
   public value: V;
   public params: BeforeParams;
+  public readonly paramsOrder = <const>['date', 'canEqual'];
   
   get errorMessage(): string {
     return `%f has to be before ${this.params.date.toString()}.`;

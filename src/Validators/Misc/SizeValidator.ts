@@ -18,8 +18,12 @@ class SizeValidator<V, E = string> extends Validator<V, E, SizeParams> {
   
   public value: V;
   public params: SizeParams;
+  public readonly paramsOrder = ["size"] as const;
   
-  public errorMessage = `%f needs to have the correct size.`;
+  get errorMessage(): string {
+    const {size} = this.params;
+    return `%f needs a size of ${size}.`;
+  }
   
   public test(): true | never {
     if (!this.tester()) {

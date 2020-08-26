@@ -20,6 +20,7 @@ class InArrayValidator<V, E = string>
   
   public value: V;
   public params: InArrayParams<V>;
+  public readonly paramsOrder = ["arr"] as const;
   
   public errorMessage = '%f field has to be in array.';
   
