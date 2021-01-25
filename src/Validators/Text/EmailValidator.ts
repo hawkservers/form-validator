@@ -2,7 +2,9 @@ import Validator from "../Validator";
 import {Obj} from "../../index";
 
 const emailRegex = new RegExp(
-  '^[a-zA-Z0-9.!#$%&’*+\\/=?^_`{|}~-]{0,64}@(?=.{2,253}$)[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)+$');
+  '^[a-zA-Z0-9.!#$%&’*+\\/=?^_`{|}~-]{0,64}@(?=.{2,253}$)[a-zA-Z0-9-]+' +
+  '(?:\\.[a-zA-Z0-9-]+)+$'
+);
 
 export interface EmailOptions {
   validator: 'email';
