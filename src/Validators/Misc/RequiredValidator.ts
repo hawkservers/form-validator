@@ -7,7 +7,7 @@ export interface RequiredOptions {
   errorMessage?: string;
 }
 
-class RequiredValidator<V, E = string> extends Validator<V, E, Obj> {
+class RequiredValidator<V = unknown, E = string> extends Validator<V, E, Obj> {
   public displayName = 'required';
 
   public field: string;
@@ -27,13 +27,17 @@ class RequiredValidator<V, E = string> extends Validator<V, E, Obj> {
   }
 
   public tester(): boolean {
-    let typeTest = true;
+    const valType = typeof this.value;
 
-    if (typeof this.value === 'object') {
-      typeTest = Object.keys(this.value).length > 0;
+    if (valType === 'number' || valType === 'boolean') { // 0|false
+      return true;
+    } else if (typeof this.value === 'object') { // object needs 1 or more keys
+      return Object.keys(this.value).length > 0;
+    } else if (Array.isArray(this.value)) { // array needs 1 or more values
+      return this.value.length > 0;
     }
 
-    return Boolean(this.value) && Number(this.value) !== 0 && typeTest;
+    return Boolean(this.value);
   }
 }
 

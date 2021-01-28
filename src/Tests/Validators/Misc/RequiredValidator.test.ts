@@ -48,7 +48,7 @@ test('Number zero', () => {
   validator.field = 'Zero';
   validator.value = 0;
 
-  expect(() => validator.test()).toThrow();
+  expect(() => validator.test()).toBeTruthy();
 });
 
 /**
